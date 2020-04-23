@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
   <head>
     {% load staticfiles %}
     <meta charset="utf-8">
@@ -8,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Ivo Završki</title>
+    <title>Ivo's Blog</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/album/">
 
@@ -55,44 +54,30 @@
           <div class="navbar-nav ml-auto">
             <a class="nav-item nav-link" href="http://twitter.com/iznova">Twitter</a>
             <a class="nav-item nav-link" href="{% static 'IZ-CV_2014.pdf' %}">Resume</a>
-            <a class="nav-item nav-link" href="{% url 'allblogs' %}">Blog</a>
+            <a class="nav-item nav-link active" href="{% url 'allblogs' %}" >Blog</a>
           </div>
         </div>
       </nav>
-</header>
+     </header>
 
 <main role="main">
+  <div class = "container">
+    <h1 class="text-center pt-3">Welcome to Ivo's Blog</h1>
+    <br />
+    <br />
+    <h2>Latest Post</h2>
+    <hr>
 
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1>Hi I'm Ivo</h1>
-      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-      <p>
-        <a href="mailto:izavrski@me.com" class="btn btn-primary my-2">Email Me</a>
-      </p>
-      <img src="{% static 'IZ-PROFILE_PIC-1.jpeg' %}" height="300" />
-    </div>
-  </section>
+    {% for blog in blog.all %}
 
-  <div class="album py-5 bg-light">
-    <div class="container">
+    <a href ="{% url 'detail' blog.id %}"><h3>{{ blog.title }}</h3></a>
+    {{ blog.pub_date_pretty }}
+    <br />
+    <img class = "img-fluid" src="{{ blog.image.url }}" height=200 width=200 />
+    <br />
+    <p>{{ blog.summary }}</p>
+    {% endfor %}
 
-      <div class="row">
-
-        {% for job in jobs.all %}
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-          <!--  <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
-            <img class="card-img-top" src="{{job.image.url}}" />
-            <div class="card-body">
-              <p class="card-text">{{ job.summary }}</p>
-            </div>
-          </div>
-        </div>
-       {% endfor %}
-
-      </div>
-    </div>
   </div>
 
 </main>
